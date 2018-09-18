@@ -47,3 +47,16 @@ def visualize(label):
 
     visualize('spam')
     visualize('ham')
+
+# see what we're getting wrong
+df['predictions'] = model.predict(X)
+
+# things that should be spam
+sneaky_spam = df[(df['predictions'] == 0) & (df['b_labels'] == 1)]['data']
+for msg in sneaky_spam:
+  print(msg)
+
+# things that should not be spam
+not_actually_spam = df[(df['predictions'] == 1) & (df['b_labels'] == 0)]['data']
+for msg in not_actually_spam:
+  print(msg)
